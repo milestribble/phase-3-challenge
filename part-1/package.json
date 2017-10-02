@@ -1,0 +1,15 @@
+{
+  "name": "part-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node app.js --presets es2015 --no-warnings",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Miles Tribble",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}
