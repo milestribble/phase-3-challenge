@@ -1,0 +1,18 @@
+{
+  "name": "part-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --no-warnings"
+  },
+  "author": "Miles Tribble",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3"
+  },
+  "dependencies": {
+    "pg": "^7.3.0"
+  }
+}

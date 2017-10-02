@@ -1,5 +1,5 @@
-import {assert, expect} from 'chai'
-import db from './database.js'
+const {assert, expect} = require('chai')
+const db = require('./database.js')
 
 describe('Database function tests', () => {
   describe('productList()', () => {
