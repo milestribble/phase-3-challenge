@@ -22,23 +22,34 @@ module.exports = {
     })
   },
   productList : function (query) {
-    if (!query) {console.error(`No query given`); process.exit(-1)}
-    this.query(`SELECT items.value FROM items JOIN sections
-      ON items.section_id = sections.self WHERE sections.value = $1`, [query])
-      .then(results => console.log(results.rows))
+    return new Promise((resolve, reject) => {
+      if (!query) {console.error(`No query given`); process.exit(-1)}
+      this.query(`SELECT items.value as item, sections.value as section FROM items JOIN sections
+        ON items.section_id = sections.self WHERE sections.value = $1`, [query])
+        .then(results => resolve(results.rows))
+    })
   },
   shopperOrders : function (query) {
-    if (!query) {console.error(`No query given`); process.exit(-1)}
-    this.query(`SELECT order_items.order_id, SUM(items.price)
-                  FROM order_items
-                JOIN items
-                  ON order_items.item_id = items.self
-                JOIN (SELECT self FROM orders WHERE shopper_id = $1) orders
-                  ON orders.self = order_items.order_id
-                GROUP BY order_items.order_id`, [query])
-      .then(results => console.log(results.rows))
+    return new Promise((resolve, reject) => {
+      if (!query) {console.error(`No query given`); process.exit(-1)}
+      this.query(`SELECT order_items.order_id, SUM(items.price)
+                    FROM order_items
+                  JOIN items
+                    ON order_items.item_id = items.self
+                  JOIN (SELECT self FROM orders WHERE shopper_id = $1) orders
+                    ON orders.self = order_items.order_id
+                  GROUP BY order_items.order_id`, [query])
+        .then(results => resolve(results.rows))
+    })
   },
   realShoppers : function (query) {
-    
+    return new Promise((resolve, reject) => {
+      this.query(`SELECT shoppers.first, COUNT(orders.self)
+                    FROM shoppers
+                  JOIN orders
+                    ON shoppers.self = orders.shopper_id
+                  GROUP BY shoppers.first`)
+        .then(results => resolve(results.rows))
+    })
   }
 }
