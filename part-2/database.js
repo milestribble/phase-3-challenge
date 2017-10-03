@@ -1,24 +1,20 @@
-const { Pool } = require('pg')
+const { Client } = require('pg')
 
 const connectionString = process.env.NODE_ENV === 'test'
   ? 'postresql://localhost:5432/grocery_store_test'
   : 'postresql://localhost:5432/grocery_store'
-const pool = new Pool({connectionString})
+const client = new Client({connectionString})
 
-pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err)
-  process.exit(-1)
-})
+
 
 module.exports = {
   query : function (statement, params) {
     return new Promise(function (resolve, reject) {
-      pool.connect()
-        .then(client => {
-          client.query(statement, params)
-          .then(res => { client.release(); resolve(res) })
-          .catch(e => { client.release(); reject(e) })
-        })
+      client.connect()
+      client.query(statement, params)
+        .then(resolve)
+        .catch(reject)
+        .then(() => client.end())
     })
   },
   productList : function (query) {

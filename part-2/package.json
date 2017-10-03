@@ -4,6 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "db:create": "createdb grocery_store",
+    "db:drop": "dropdb grocery_store",
+    "db:schema": "psql grocery_store < ./schema.sql",
+    "db:load": "psql grocery_store < ./load-data.sql",
+    "db:reset": "npm run db:drop && npm run db:create && npm run db:schema && npm run db:load",
     "test": "NODE_ENV=test mocha --no-warnings"
   },
   "author": "Miles Tribble",
