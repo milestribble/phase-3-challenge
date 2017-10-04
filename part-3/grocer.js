@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function addToCart() {
   let cartNode = this.parentElement.cloneNode(true)
+  cartNode.prepend(cartNode.getElementsByTagName('button')[0].cloneNode(true))
+  cartNode.getElementsByTagName('button')[1].remove()
   cartNode.getElementsByTagName('button')[0].innerText = 'Remove'
   cartNode.getElementsByTagName('button')[0].addEventListener('click', removeFromCart)
   document.getElementById('cart').append(cartNode)
@@ -32,7 +34,7 @@ function addToCart() {
 }
 
 function removeFromCart () {
-  let subtraction = this.previousElementSibling.innerText
+  let subtraction = this.nextElementSibling.nextElementSibling.innerText
   subtraction = Number(subtraction.slice(1))
   let cartTotal = document.getElementById('total').innerText
   cartTotal = Number(cartTotal.slice(1)) - subtraction
