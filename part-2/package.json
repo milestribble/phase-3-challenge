@@ -8,8 +8,13 @@
     "db:drop": "dropdb grocery_store",
     "db:schema": "psql grocery_store < ./schema.sql",
     "db:load": "psql grocery_store < ./load-data.sql",
-    "db:reset": "npm run db:drop && npm run db:create && npm run db:schema && npm run db:load",
-    "test": "NODE_ENV=test mocha --no-warnings"
+    "db:reset": "npm run db:drop; npm run db:create && npm run db:schema && npm run db:load",
+    "test:create": "createdb grocery_store_test",
+    "test:drop": "dropdb grocery_store_test",
+    "test:schema": "psql grocery_store_test < ./schema.sql",
+    "test:load": "psql grocery_store_test < ./load-data.sql",
+    "test:reset": "npm run test:drop; npm run test:create && npm run test:schema && npm run test:load",
+    "test": "npm run test:reset && NODE_ENV=test mocha "
   },
   "author": "Miles Tribble",
   "license": "ISC",
