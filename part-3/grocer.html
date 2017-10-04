@@ -16,13 +16,25 @@
     </header>
     <div id="shade">
       <div id="modal">
-        <div class=flex>
+        <div class="flex flex-row-between">
+          <text>
+            Cart
+          </text>
           <button type="button" id="exit-modal">
             X
           </button>
         </div>
+        <br>
         <div id="cart">
         </div>
+        <br>
+        <li class="item flex flex-row-between">
+          <span class="item-name">Total</span>
+          <span id="total" class="item-price">$0.00</span>
+          <button type="button" onclick="clearCart()">
+            &nbsp;&nbsp;&nbsp;Clear&nbsp;&nbsp;&nbsp;
+          </button>
+        </li>
       </div>
     </div>
     <div class="flex flex-full">
