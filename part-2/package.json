@@ -2,7 +2,7 @@
   "name": "part-2",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "store",
   "scripts": {
     "db:create": "createdb grocery_store",
     "db:drop": "dropdb grocery_store",
