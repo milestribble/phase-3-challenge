@@ -10,7 +10,7 @@ module.exports = {
     return new Promise(function (resolve, reject) {
       let client = new Client({connectionString})
       client.connect().catch(err=>console.log(`database "grocery_store" does not exist\n
-  Try running 'npm run db:reset'`))
+  Run 'npm run db:reset' then try again.`))
       client.query(statement, params)
         .then(resolve)
         .catch(reject)
@@ -20,8 +20,8 @@ module.exports = {
   productList : function (query) {
     return new Promise((resolve, reject) => {
       if (!query) reject('No query given')
-      this.query(`SELECT items.value as "Product Name", sections.value as "Section" FROM items JOIN sections
-        ON items.section_id = sections.self WHERE sections.value = $1`, [query])
+      this.query(`SELECT items.value as "Product Name", sections.value as "Section" FROM items
+        JOIN sections ON items.section_id = sections.self WHERE sections.value = $1`, [query])
         .then(results => typeof results.rows[0] === 'undefined'
           ? reject('Section does not exist')
           : resolve(results.rows))

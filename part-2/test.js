@@ -24,7 +24,9 @@ describe('Database function tests', () => {
     it('Returns the products in the given section', done => {
       db.productList('dairy')
         .then(results =>{
-          expect(results).to.deep.equal(results)
+          expect(results).to.deep.include({ 'Product Name': 'Milk', Section: 'dairy' })
+          expect(results).to.deep.include({ 'Product Name': 'Eggs', Section: 'dairy' })
+          expect(results).to.deep.include({ 'Product Name': 'Butter', Section: 'dairy' })
           done()
         })
     })
@@ -49,7 +51,8 @@ describe('Database function tests', () => {
     it('Returns the orders for the given shopper', done => {
       db.shopperOrders('1')
         .then(results =>{
-          expect(results).to.deep.equal(results)
+          expect(results).to.deep.include({ 'Order ID': 1, 'Total Cost': '54.43' })
+          expect(results).to.deep.include({ 'Order ID': 2, 'Total Cost': '37.74' })
           done()
         })
     })
@@ -59,7 +62,9 @@ describe('Database function tests', () => {
       it('Returns the shoppers with at least one order', done => {
         db.realShoppers()
           .then(results =>{
-            expect(results[0]).to.have.deep.equal({'Shopper Name': 'Lisa', 'Number of Orders': '1'})
+            expect(results).to.deep.include({'Shopper Name': 'Lisa', 'Number of Orders': '1'})
+            expect(results).to.deep.include({'Shopper Name': 'John', 'Number of Orders': '2' })
+            expect(results).to.deep.include({'Shopper Name': 'Sarah', 'Number of Orders': '2' })
             done()
           })
       })
@@ -72,7 +77,7 @@ describe('Database function tests', () => {
       it('Regects if there are no shoppers wth orders', done => {
         db.realShoppers()
           .then(results =>{
-            expect(results[0]).to.equal(undefined)
+            expect(results).to.deep.equal([])
             done()
           })
       })
