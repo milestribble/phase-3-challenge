@@ -23,4 +23,13 @@ app.post('/api/array/concat', (req, res) => {
         : res.status(200).json({"result": req.body.array1.concat(req.body.array2)})
 })
 
+app.get('/quit', (req, res) => {
+  res.status(200).type('text/plain').send('Quit Part 1: Simple web app')
+  console.log('Quit Part 1: Simple web app from browser')
+  process.exit(0)
+})
+
 app.listen(3000)
+console.log(`* Listening on http://localhost:3000/
+* Use ^C or visit http://localhost:3000/quit to exit
+  `);
